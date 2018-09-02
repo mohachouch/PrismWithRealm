@@ -19,19 +19,4 @@ namespace PrismWithRealm.Domains.Interventions._Migrations
 			}
 		}
 	}
-
-	public class Schema3 : IMigration
-	{
-		public ulong SchemaVersion => 3;
-
-		public void OnMigrate(Migration migration, ulong oldSchemaVersion, ulong newSchemaVersion)
-		{
-			var interventions = migration.NewRealm.All<Intervention>();
-
-			foreach (var item in interventions)
-			{
-				item.Libelle += $" - {SchemaVersion}";
-			}
-		}
-	}
 }

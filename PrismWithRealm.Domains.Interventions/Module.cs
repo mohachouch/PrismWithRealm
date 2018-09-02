@@ -6,6 +6,7 @@ using PrismWithRealm.Domains.Interventions.Interfaces;
 using PrismWithRealm.Domains.Interventions.Services;
 using Realms;
 using System;
+using System.Linq;
 
 namespace PrismWithRealm.Domains.Interventions
 {
@@ -27,13 +28,21 @@ namespace PrismWithRealm.Domains.Interventions
 
 		public override void OnDataBaseCreated(Realm database)
 		{
-			database.HasData<Intervention>(
-				new Intervention() { Id = 1, Libelle = "Intervention 1", DateIntervention = DateTime.Today },
-				//new Intervention() { Id = 2, Libelle = "Intervention 2", DateIntervention = DateTime.Today },
-				new Intervention() { Id = 3, Libelle = "Intervention 3", DateIntervention = DateTime.Today.AddDays(1) }
+			var lieu1 = new Lieu() { Id = 1, Libelle = "L'Isle D'Abeau" };
+			var lieu2 = new Lieu() { Id = 2, Libelle = "Villefontaine" };
+			var lieu3 = new Lieu() { Id = 3, Libelle = "Bourgoin Jallieu" };
+
+			database.HasData<Lieu>(
+				lieu1,
+				lieu2, 
+				lieu3
 			);
 
-
+			database.HasData<Intervention>(
+				new Intervention() { Id = 1, Libelle = "Intervention 1", DateIntervention = DateTime.Today, Lieu = lieu3 },
+				new Intervention() { Id = 2, Libelle = "Intervention 2", DateIntervention = DateTime.Today, Lieu = lieu2 },
+				new Intervention() { Id = 3, Libelle = "Intervention 3", DateIntervention = DateTime.Today.AddDays(1), Lieu = lieu1 }
+			);
 		}
 	}
 }

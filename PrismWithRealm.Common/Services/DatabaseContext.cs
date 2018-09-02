@@ -11,7 +11,7 @@ namespace PrismWithRealm.Common.Services
 {
 	public class RealmManager : IRealmManager
 	{
-		public static readonly ulong DATABASE_SCHEMA_VERSION = 3;
+		public static readonly ulong DATABASE_SCHEMA_VERSION = 4;
 		public static readonly string DATABASE_PATH = "demo.realm";
 
 		private readonly IContainerExtension containerExtension;
@@ -64,18 +64,6 @@ namespace PrismWithRealm.Common.Services
 			{
 				var realmModule = (IRealmModule)containerExtension.Resolve(module.ModuleType);
 				realmModule?.OnDataBaseCreated(database);
-
-				//var types = module.ModuleType.Assembly.GetTypes().Where(t => typeof(IMigration).IsAssignableFrom(t));
-
-				//foreach (var item in types)
-				//{
-				//	var instance = Activator.CreateInstance(item) as IMigration;
-
-				//	if (instance.SchemaVersion <= database.Config.SchemaVersion)
-				//	{
-				//		instance.SeedData(database);
-				//	}
-				//}
 			}
 		}
 
